@@ -112,6 +112,10 @@ label.error {
   font-size: 18px;
   font-weight: bold;
   text-align: center; }
+  
+.text-white{
+  font-size: 20px;
+}
 
 .submitting {
   text-align: center;
