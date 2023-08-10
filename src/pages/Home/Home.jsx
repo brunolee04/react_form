@@ -56,36 +56,32 @@ export default function Home(){
 
             if(name.length < 2){
                 countErrors++;
-                setErrorName("Informe seu nome");
+                setErrorName("Informe seu Nome.");
             }
 
             if(lastname.length < 3){
                 countErrors++;
-                setErrorName("Informe seu nome");
+                setErrorLastname("Informe seu Sobrenome.");
             }
 
             if(cpf.length < 11){
                 countErrors++;
-                setErrorName("Informe seu nome");
+                setErrorCpf("Informe seu CPF: Somente números.");
             }
             if(mail.length < 7){
                 countErrors++;
-                setErrorName("Informe seu nome");
+                setErrorMail("Informe seu melhor Email");
             }
 
             if(password.length < 3){
                 countErrors++;
-                setErrorName("Informe seu nome");
+                setErrorPassword("Informe uma Senha com no mínimo 3 caracteres.");
             }
 
-            if(passwordConfirm.length < 3){
-                countErrors++;
-                setErrorName("Informe seu nome");
-            }
 
             if(password!=passwordConfirm){
                 countErrors++;
-                setErrorName("Informe seu nome");
+                setErrorPasswordConfirm("A Senha digitada neste campo não coincide com a senha acima.");
             }
 
             return countErrors > 0 ? false : true;
@@ -159,14 +155,14 @@ export default function Home(){
                                     <div className="row">
                                         <div className="col-md-12 form-group">
                                         <label for="name" className="col-form-label">Nome</label>
-                                        <input type="text" className="form-control" name="firstname" id="firstname"  value={name} onChange={(name)=>setName(name.target.value)}/>
+                                        <input type="text" className="form-control" name="firstname" id="firstname" maxLength={30} value={name} onChange={(name)=>setName(name.target.value)}/>
                                         <label className="error">{errorName}</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-md-12 form-group">
                                         <label for="name" className="col-form-label">Sobrenome</label>
-                                        <input type="text" className="form-control" name="lastname" id="lastname"   value={lastname}  onChange={(lastname)=>setLastname(lastname.target.value)}/>
+                                        <input type="text" className="form-control" name="lastname" id="lastname" maxLength={30}  value={lastname}  onChange={(lastname)=>setLastname(lastname.target.value)}/>
                                         <label className="error">{errorLastname}</label>
                                         </div>
                                     </div>
@@ -180,21 +176,21 @@ export default function Home(){
                                     <div className="row">
                                         <div className="col-md-12 form-group">
                                         <label for="email" className="col-form-label">Email</label>
-                                        <input type="text" className="form-control" name="email" id="email" value={mail} onChange={(mail)=>setMail(mail.target.value)}/>
+                                        <input type="text" className="form-control" name="email" id="email" value={mail} maxLength={25} onChange={(mail)=>setMail(mail.target.value)}/>
                                         <label className="error">{errorMail}</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-md-12 form-group">
                                         <label for="name" className="col-form-label">Senha</label>
-                                        <input type="text" className="form-control" name="password" id="password"  placeholder="Acima de 3 caracteres" value={password} onChange={(password)=>setPassword(password.target.value)}/>
+                                        <input type="text" className="form-control" name="password" id="password" maxLength={15} placeholder="Acima de 3 caracteres" value={password} onChange={(password)=>setPassword(password.target.value)}/>
                                         <label className="error">{errorPassword}</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-md-12 form-group">
                                         <label for="name" className="col-form-label">Confirmação de senha</label>
-                                        <input type="text" className="form-control" name="passwordConfirm" id="passwordConfirm"   placeholder="Digite sua senha novamente"  value={passwordConfirm} onChange={(passwordConfirm)=>setPasswordConfirm(passwordConfirm.target.value)}/>
+                                        <input type="text" className="form-control" name="passwordConfirm" id="passwordConfirm"  maxLength={15}  placeholder="Digite sua senha novamente"  value={passwordConfirm} onChange={(passwordConfirm)=>setPasswordConfirm(passwordConfirm.target.value)}/>
                                         <label className="error">{errorPasswordConfirm}</label>
                                         </div>
                                     </div>
@@ -220,7 +216,7 @@ export default function Home(){
             
             
             setHtml(html);
-    }, [mail,name,lastname,cpf,mail,password,passwordConfirm,customer,errorName]);
+    }, [mail,name,lastname,cpf,mail,password,passwordConfirm,customer,errorName,errorLastname,errorCpf,errorMail,errorPassword,errorPasswordConfirm]);
    
 
     return (
