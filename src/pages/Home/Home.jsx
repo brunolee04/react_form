@@ -10,9 +10,11 @@ export default function Home(){
 
     const [customer,setCustomer] = useState(null);
 
+    const [id, setId] = useState(0);
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [cpf, setCpf] = useState("");
+    const [dateBirth, setDateBirth] = useState("");
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -57,32 +59,46 @@ export default function Home(){
             if(name.length < 2){
                 countErrors++;
                 setErrorName("Informe seu Nome.");
+                var errorElement = document.querySelector('#errorName');
+                errorElement.style.display = "block"; 
             }
 
             if(lastname.length < 3){
                 countErrors++;
                 setErrorLastname("Informe seu Sobrenome.");
+                var errorElement = document.querySelector('#errorLastname');
+                errorElement.style.display = "block"; 
             }
 
             if(cpf.length < 11){
                 countErrors++;
                 setErrorCpf("Informe seu CPF: Somente números.");
+                var errorElement = document.querySelector('#errorCpf');
+                errorElement.style.display = "block"; 
             }
             if(mail.length < 7){
                 countErrors++;
                 setErrorMail("Informe seu melhor Email");
+                var errorElement = document.querySelector('#errorMail');
+                errorElement.style.display = "block"; 
             }
 
             if(password.length < 3){
                 countErrors++;
                 setErrorPassword("Informe uma Senha com no mínimo 3 caracteres.");
+                var errorElement = document.querySelector('#errorPassword');
+                errorElement.style.display = "block"; 
             }
 
 
             if(password!=passwordConfirm){
                 countErrors++;
                 setErrorPasswordConfirm("A Senha digitada neste campo não coincide com a senha acima.");
+                var errorElement = document.querySelector('#errorPasswordConfirm');
+                errorElement.style.display = "block"; 
             }
+
+           
 
             return countErrors > 0 ? false : true;
         }
@@ -92,8 +108,18 @@ export default function Home(){
             .then((response) =>{
                 if(response.status == 200){
                     var data = response.data;
+                    
                     if(!data.status && data.code == 'notfound'){
                         setCustomer(data.data);
+                        console.log('notfound',customer);
+                    }
+                    if(data.status && data.code == 'found'){
+                        setCustomer(data.data);
+                        setId(data.data.customer_id);
+                        setName(data.data.firstname);
+                        setLastname(data.data.lastname);
+                        setCpf(data.data.cpf);
+                        setMail(data.data.email);
                     }
                 }
             })
@@ -107,6 +133,24 @@ export default function Home(){
         function checkPassword(confirmPassword){
 
             //setPasswordConfirm();
+        }
+
+        function confirm(){
+            if(id!=0){
+                Api.get(`/confirm&id=${id}`)
+                .then((response) =>{
+                    if(response.status == 200){
+                        var data = response.data;
+                        
+                        if(data.status){
+                            console.log('confirmado');
+                        }
+                        if(!data.status){
+                            console.log('erro ao confirmar');
+                        }
+                    }
+                })
+            }
         }
 
            var html = (
@@ -149,58 +193,96 @@ export default function Home(){
                                         </div>
                                     </div>
                                 </form>
-                                    : 
-                                <form className="mb-5" method="post" id="raffleForm" name="raffleForm">
-                                    <h3 className="heading">Cadastrar</h3>
-                                    <div className="row">
-                                        <div className="col-md-12 form-group">
-                                        <label for="name" className="col-form-label">Nome</label>
-                                        <input type="text" className="form-control" name="firstname" id="firstname" maxLength={30} value={name} onChange={(name)=>setName(name.target.value)}/>
-                                        <label className="error">{errorName}</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 form-group">
-                                        <label for="name" className="col-form-label">Sobrenome</label>
-                                        <input type="text" className="form-control" name="lastname" id="lastname" maxLength={30}  value={lastname}  onChange={(lastname)=>setLastname(lastname.target.value)}/>
-                                        <label className="error">{errorLastname}</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 form-group">
-                                        <label for="name" className="col-form-label">CPF</label>
-                                        <input type="text" className="form-control" name="cpf" id="cpf" placeholder="Somente Números" maxLength={11}  value={cpf}  onChange={(cpf)=>updateCpf(cpf.target.value)}/>
-                                        <label className="error">{errorCpf}</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 form-group">
-                                        <label for="email" className="col-form-label">Email</label>
-                                        <input type="text" className="form-control" name="email" id="email" value={mail} maxLength={25} onChange={(mail)=>setMail(mail.target.value)}/>
-                                        <label className="error">{errorMail}</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 form-group">
-                                        <label for="name" className="col-form-label">Senha</label>
-                                        <input type="text" className="form-control" name="password" id="password" maxLength={15} placeholder="Acima de 3 caracteres" value={password} onChange={(password)=>setPassword(password.target.value)}/>
-                                        <label className="error">{errorPassword}</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 form-group">
-                                        <label for="name" className="col-form-label">Confirmação de senha</label>
-                                        <input type="text" className="form-control" name="passwordConfirm" id="passwordConfirm"  maxLength={15}  placeholder="Digite sua senha novamente"  value={passwordConfirm} onChange={(passwordConfirm)=>setPasswordConfirm(passwordConfirm.target.value)}/>
-                                        <label className="error">{errorPasswordConfirm}</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                        <input  value="Confirmar" className="btn btn-block btn-danger rounded-0 py-2 px-4" onClick={registerForm}/>
-                                        <span className="submitting"></span>
-                                        </div>
-                                    </div>
-                                </form>
+                                    :
+                                    (  
+                                        customer.firstname ? 
+
+                                        <form className="mb-5" method="post" id="raffleForm" name="raffleForm">
+                                            <h3 className="heading">Confirmar Informações</h3>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group confirmDiv">
+                                                <label for="name" className="col-form-label confirmLabelTitle">Nome: </label>
+                                                <label className="col-form-label">{name}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group confirmDiv">
+                                                <label for="name" className="col-form-label confirmLabelTitle">Sobrenome: </label>
+                                                <label  className="col-form-label">{lastname}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group confirmDiv">
+                                                <label for="name" className="col-form-label confirmLabelTitle">CPF: </label>
+                                                <label className="col-form-label">{cpf}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group confirmDiv">
+                                                <label for="email" className="col-form-label confirmLabelTitle">Email</label>
+                                                <label className="col-form-label">{mail}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 divBtn">
+                                                <input  value="Participar do Sorteio!" className="btn btn-block btn-danger rounded-0 py-2 px-4" onClick={confirm}/>
+                                                <span className="submitting"></span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    :
+                                        <form className="mb-5" method="post" id="raffleForm" name="raffleForm">
+                                            <h3 className="heading">Cadastrar</h3>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group">
+                                                <label for="name" className="col-form-label">Nome</label>
+                                                <input type="text" className="form-control" name="firstname" id="firstname" maxLength={30} value={name} onChange={(name)=>setName(name.target.value)}/>
+                                                <label className="error" id="errorName">{errorName}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group">
+                                                <label for="name" className="col-form-label">Sobrenome</label>
+                                                <input type="text" className="form-control" name="lastname" id="lastname" maxLength={30}  value={lastname}  onChange={(lastname)=>setLastname(lastname.target.value)}/>
+                                                <label className="error" id="errorLastname">{errorLastname}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group">
+                                                <label for="name" className="col-form-label">CPF</label>
+                                                <input type="text" className="form-control" name="cpf" id="cpf" placeholder="Somente Números" maxLength={11}  value={cpf}  onChange={(cpf)=>updateCpf(cpf.target.value)}/>
+                                                <label className="error" id="errorCpf">{errorCpf}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group">
+                                                <label for="email" className="col-form-label">Email</label>
+                                                <input type="text" className="form-control" name="email" id="email" value={mail} maxLength={25} onChange={(mail)=>setMail(mail.target.value)}/>
+                                                <label className="error" id="errorMail">{errorMail}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group">
+                                                <label for="name" className="col-form-label">Senha</label>
+                                                <input type="text" className="form-control" name="password" id="password" maxLength={15} placeholder="Acima de 3 caracteres" value={password} onChange={(password)=>setPassword(password.target.value)}/>
+                                                <label className="error" id="errorPassword">{errorPassword}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12 form-group">
+                                                <label for="name" className="col-form-label">Confirmação de senha</label>
+                                                <input type="text" className="form-control" name="passwordConfirm" id="passwordConfirm"  maxLength={15}  placeholder="Digite sua senha novamente"  value={passwordConfirm} onChange={(passwordConfirm)=>setPasswordConfirm(passwordConfirm.target.value)}/>
+                                                <label className="error" id="errorPasswordConfirm">{errorPasswordConfirm}</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-12">
+                                                <input  value="Confirmar" className="btn btn-block btn-danger rounded-0 py-2 px-4" onClick={registerForm}/>
+                                                <span className="submitting"></span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    )
                         }
                         <div id="form-message-warning mt-4"></div> 
                         <div id="form-message-success">
@@ -216,7 +298,7 @@ export default function Home(){
             
             
             setHtml(html);
-    }, [mail,name,lastname,cpf,mail,password,passwordConfirm,customer,errorName,errorLastname,errorCpf,errorMail,errorPassword,errorPasswordConfirm]);
+    }, [id,mail,name,lastname,cpf,mail,password,passwordConfirm,customer,errorName,errorLastname,errorCpf,errorMail,errorPassword,errorPasswordConfirm]);
    
 
     return (
