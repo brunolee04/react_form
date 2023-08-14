@@ -150,6 +150,14 @@ label.error {
   width: 20%;
 }
 
+.inputDateBirth{
+  float:left;
+}
+
+.birthDateLabel{
+  margin-left: 13px;
+}
+
 .successH3{
     height: 50px;
     font-size: 30px;
@@ -169,4 +177,10 @@ label.error {
 
 .successSubText{
   font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .box {
+    padding: 40px 25px;
+  }
 }

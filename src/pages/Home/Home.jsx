@@ -16,6 +16,10 @@ export default function Home(){
     const [lastname, setLastname] = useState("");
     const [cpf, setCpf] = useState("");
     const [dateBirth, setDateBirth] = useState("");
+    const [bDay,updateBDay] = useState(0);
+    const [bMonth,updateMDay] = useState(0); 
+    const [bYear,updateYDay] = useState(0);
+
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -46,6 +50,9 @@ export default function Home(){
                     name: name,
                     lastname: lastname,
                     cpf: cpf,
+                    bDay:bDay,
+                    bMonth:bMonth,
+                    bYear:bYear,
                     mail: mail,
                     password: password,
                 }).then((response)=>console.log(response))
@@ -65,6 +72,9 @@ export default function Home(){
                 setErrorName("Informe seu Nome.");
                 var errorElement = document.querySelector('#errorName');
                 errorElement.style.display = "block"; 
+            }else{
+                var errorElement = document.querySelector('#errorName');
+                errorElement.style.display = "none";
             }
 
             if(lastname.length < 3){
@@ -72,6 +82,9 @@ export default function Home(){
                 setErrorLastname("Informe seu Sobrenome.");
                 var errorElement = document.querySelector('#errorLastname');
                 errorElement.style.display = "block"; 
+            }else{
+                var errorElement = document.querySelector('#errorLastname');
+                errorElement.style.display = "none";
             }
 
             if(cpf.length < 11){
@@ -79,12 +92,19 @@ export default function Home(){
                 setErrorCpf("Informe seu CPF: Somente números.");
                 var errorElement = document.querySelector('#errorCpf');
                 errorElement.style.display = "block"; 
+            }else{
+                var errorElement = document.querySelector('#errorCpf');
+                errorElement.style.display = "none";
             }
+
             if(mail.length < 7){
                 countErrors++;
                 setErrorMail("Informe seu melhor Email");
                 var errorElement = document.querySelector('#errorMail');
                 errorElement.style.display = "block"; 
+            }else{
+                var errorElement = document.querySelector('#errorMail');
+                errorElement.style.display = "none";
             }
 
             if(password.length < 3){
@@ -92,6 +112,9 @@ export default function Home(){
                 setErrorPassword("Informe uma Senha com no mínimo 3 caracteres.");
                 var errorElement = document.querySelector('#errorPassword');
                 errorElement.style.display = "block"; 
+            }else{
+                var errorElement = document.querySelector('#errorPassword');
+                errorElement.style.display = "none";
             }
 
 
@@ -100,6 +123,9 @@ export default function Home(){
                 setErrorPasswordConfirm("A Senha digitada neste campo não coincide com a senha acima.");
                 var errorElement = document.querySelector('#errorPasswordConfirm');
                 errorElement.style.display = "block"; 
+            }else{
+                var errorElement = document.querySelector('#errorPasswordConfirm');
+                errorElement.style.display = "none";
             }
 
            
@@ -248,7 +274,7 @@ export default function Home(){
                                                         <label for="name" className="col-form-label confirmLabelTitle">CPF: </label>
                                                         <label className="col-form-label">{cpf}</label>
                                                         </div>
-                                                    </div>
+                                                    </div>                                                   
                                                     <div className="row">
                                                         <div className="col-md-12 form-group confirmDiv">
                                                         <label for="email" className="col-form-label confirmLabelTitle">Email</label>
@@ -284,6 +310,157 @@ export default function Home(){
                                                         <label for="name" className="col-form-label">CPF</label>
                                                         <input type="text" className="form-control" name="cpf" id="cpf" placeholder="Somente Números" maxLength={11}  value={cpf}  onChange={(cpf)=>updateCpf(cpf.target.value)}/>
                                                         <label className="error" id="errorCpf">{errorCpf}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <label for="name" className="col-form-label birthDateLabel">Data Nascimento</label>
+                                                        <div className="col-md-12 form-group">
+                                                        
+                                                            <div className="col-md-4 form-group inputDateBirth">
+                                                                <select onChange={(day)=>updateBDay(day.target.vaue)} className="form-control" aria-label=".form-select-lg example">
+                                                                    <option value="01">01</option>
+                                                                    <option value="02">02</option>
+                                                                    <option value="03">03</option>
+                                                                    <option value="04">04</option>
+                                                                    <option value="05">05</option>
+                                                                    <option value="06">06</option>
+                                                                    <option value="07">07</option>
+                                                                    <option value="08">08</option>
+                                                                    <option value="09">09</option>
+                                                                    <option value="10">10</option>
+
+                                                                    <option value="11">11</option>
+                                                                    <option value="12">12</option>
+                                                                    <option value="13">13</option>
+                                                                    <option value="14">14</option>
+                                                                    <option value="15">15</option>
+                                                                    <option value="16">16</option>
+                                                                    <option value="17">17</option>
+                                                                    <option value="18">18</option>
+                                                                    <option value="19">19</option>
+                                                                    <option value="20">20</option>
+
+                                                                    <option value="21">21</option>
+                                                                    <option value="22">22</option>
+                                                                    <option value="23">23</option>
+                                                                    <option value="24">24</option>
+                                                                    <option value="25">25</option>
+                                                                    <option value="26">26</option>
+                                                                    <option value="27">27</option>
+                                                                    <option value="28">28</option>
+                                                                    <option value="29">29</option>
+                                                                    <option value="30">30</option>
+
+                                                                    <option value="31">31</option>
+
+                                                                    
+                                                                </select>
+                                                            </div>
+
+                                                            <div className="col-md-4 form-group inputDateBirth">
+                                                                <select  onChange={(month)=>updateMDay(month.target.vaue)} className="form-control" aria-label=".form-select-lg example">
+                                                                    <option value="01">Jan</option>
+                                                                    <option value="02">Fev</option>
+                                                                    <option value="03">Mar</option>
+                                                                    <option value="04">Abr</option>
+                                                                    <option value="05">Mai</option>
+                                                                    <option value="06">Jun</option>
+                                                                    <option value="07">Jul</option>
+                                                                    <option value="08">Ago</option>
+                                                                    <option value="09">Set</option>
+                                                                    <option value="10">Out</option>
+                                                                    <option value="11">Nov</option>
+                                                                    <option value="12">Dez</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div className="col-md-4 form-group inputDateBirth">
+                                                                <select onChange={(year)=>updateYDay(year.target.vaue)} className="form-control" aria-label=".form-select-lg example">
+                                                                    <option value="2023">2023</option>
+                                                                    <option value="2022">2022</option>
+                                                                    <option value="2021">2021</option>
+                                                                    <option value="2020">2020</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2016">2016</option>
+                                                                    <option value="2015">2015</option>
+
+                                                                    <option value="2014">2014</option>
+                                                                    <option value="2013">2013</option>
+                                                                    <option value="2012">2012</option>
+                                                                    <option value="2011">2011</option>
+                                                                    <option value="2010">2010</option>
+                                                                    <option value="2009">2009</option>
+                                                                    <option value="2008">2008</option>
+                                                                    <option value="2007">2007</option>
+                                                                    <option value="2006">2006</option>
+
+
+                                                                    <option value="2005">2005</option>
+                                                                    <option value="2004">2004</option>
+                                                                    <option value="2003">2003</option>
+                                                                    <option value="2002">2002</option>
+                                                                    <option value="2001">2001</option>
+                                                                    <option value="2000">2000</option>
+                                                                    <option value="1999">1999</option>
+                                                                    <option value="1998">1998</option>
+                                                                    <option value="1997">1997</option>
+
+
+                                                                    <option value="1996">1996</option>
+                                                                    <option value="1995">1995</option>
+                                                                    <option value="1994">1994</option>
+                                                                    <option value="1993">1993</option>
+                                                                    <option value="1992">1992</option>
+                                                                    <option value="1991">1991</option>
+                                                                    <option value="1990">1990</option>
+                                                                    <option value="1989">1989</option>
+                                                                    <option value="1988">1988</option>
+
+                                                                    <option value="1987">1987</option>
+                                                                    <option value="1986">1986</option>
+                                                                    <option value="1985">1985</option>
+                                                                    <option value="1984">1984</option>
+                                                                    <option value="1983">1983</option>
+                                                                    <option value="1982">1982</option>
+                                                                    <option value="1981">1981</option>
+                                                                    <option value="1980">1980</option>
+                                                                    <option value="1979">1979</option>
+
+                                                                    <option value="1978">1978</option>
+                                                                    <option value="1977">1977</option>
+                                                                    <option value="1976">1976</option>
+                                                                    <option value="1975">1975</option>
+                                                                    <option value="1974">1974</option>
+                                                                    <option value="1973">1973</option>
+                                                                    <option value="1972">1972</option>
+                                                                    <option value="1971">1971</option>
+                                                                    <option value="1970">1970</option>
+
+                                                                    <option value="1969">1969</option>
+                                                                    <option value="1968">1968</option>
+                                                                    <option value="1967">1967</option>
+                                                                    <option value="1966">1966</option>
+                                                                    <option value="1955">1955</option>
+                                                                    <option value="1954">1954</option>
+                                                                    <option value="1953">1953</option>
+                                                                    <option value="1952">1952</option>
+                                                                    <option value="1951">1951</option>
+
+                                                                    <option value="1950">1950</option>
+                                                                    <option value="1949">1949</option>
+                                                                    <option value="1948">1948</option>
+                                                                    <option value="1947">1947</option>
+                                                                    <option value="1946">1946</option>
+                                                                    <option value="1945">1945</option>
+                                                                    <option value="1944">1944</option>
+                                                                    <option value="1943">1943</option>
+                                                                    <option value="1942">1942</option>
+
+                                                                </select>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <div className="row">
@@ -334,7 +511,7 @@ export default function Home(){
             
             
             setHtml(html);
-    }, [id,mail,name,lastname,cpf,mail,password,passwordConfirm,customer,successMessage,errorName,errorLastname,errorCpf,errorMail,errorPassword,errorPasswordConfirm]);
+    }, [id,mail,name,lastname,cpf,mail,password,passwordConfirm,customer,bDay,bMonth,bYear,successMessage,errorName,errorLastname,errorCpf,errorMail,errorPassword,errorPasswordConfirm]);
    
 
     return (
