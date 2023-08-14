@@ -141,3 +141,32 @@ label.error {
   font-weight: bold;
   font-size: 12px;
   color: #000; }
+
+.imgConfirm {
+  width: 100%;
+}
+
+.btnRefresh{
+  width: 20%;
+}
+
+.successH3{
+    height: 50px;
+    font-size: 30px;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+    padding: 0px;
+    font-weight: 900;
+    background: linear-gradient(to left,#0d0, #0a0);
+}
+
+.successText{
+  font-size: 20px;
+}
+
+.successSubText{
+  font-size: 15px;
+}
