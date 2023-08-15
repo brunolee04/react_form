@@ -42,11 +42,9 @@ export default function Home(){
 
     useEffect(() => {
 
-        
         function registerForm(){
-
             if(validateForm()){
-                Api.post("/",{
+                Api.post("/register",{
                     name: name,
                     lastname: lastname,
                     cpf: cpf,
@@ -55,7 +53,18 @@ export default function Home(){
                     bYear:bYear,
                     mail: mail,
                     password: password,
-                }).then((response)=>console.log(response))
+                }).then((response)=>{
+                    if(response.status == 200){
+                        var data = response.data;
+                        if(data.status){
+                            setCustomer(1);
+                            const timeOut = setTimeout(success, 2000);
+                        }
+                        else{
+                            console.log("Adicionar Exceção");
+                        }
+                    }
+                })
                 .catch((err) => {
                     console.log(err);
                 })
@@ -141,7 +150,6 @@ export default function Home(){
                     
                     if(!data.status && data.code == 'notfound'){
                         setCustomer(data.data);
-                        console.log('notfound',customer);
                     }
                     if(data.status && data.code == 'found'){
                         setCustomer(data.data);
@@ -185,9 +193,7 @@ export default function Home(){
         }
 
         function success(){
-            console.log('pewee');
             setSuccessMessage(false);
-            console.log(successMessage);
         }
 
            var html = (
@@ -317,7 +323,7 @@ export default function Home(){
                                                         <div className="col-md-12 form-group">
                                                         
                                                             <div className="col-md-4 form-group inputDateBirth">
-                                                                <select onChange={(day)=>updateBDay(day.target.vaue)} className="form-control" aria-label=".form-select-lg example">
+                                                                <select onChange={(day)=>updateBDay(day.target.value)} name="bDay" className="form-control" aria-label=".form-select-lg example">
                                                                     <option value="01">01</option>
                                                                     <option value="02">02</option>
                                                                     <option value="03">03</option>
@@ -328,7 +334,6 @@ export default function Home(){
                                                                     <option value="08">08</option>
                                                                     <option value="09">09</option>
                                                                     <option value="10">10</option>
-
                                                                     <option value="11">11</option>
                                                                     <option value="12">12</option>
                                                                     <option value="13">13</option>
@@ -339,7 +344,6 @@ export default function Home(){
                                                                     <option value="18">18</option>
                                                                     <option value="19">19</option>
                                                                     <option value="20">20</option>
-
                                                                     <option value="21">21</option>
                                                                     <option value="22">22</option>
                                                                     <option value="23">23</option>
@@ -350,15 +354,12 @@ export default function Home(){
                                                                     <option value="28">28</option>
                                                                     <option value="29">29</option>
                                                                     <option value="30">30</option>
-
                                                                     <option value="31">31</option>
-
-                                                                    
                                                                 </select>
                                                             </div>
 
                                                             <div className="col-md-4 form-group inputDateBirth">
-                                                                <select  onChange={(month)=>updateMDay(month.target.vaue)} className="form-control" aria-label=".form-select-lg example">
+                                                                <select  onChange={(month)=>updateMDay(month.target.value)} className="form-control" aria-label=".form-select-lg example">
                                                                     <option value="01">Jan</option>
                                                                     <option value="02">Fev</option>
                                                                     <option value="03">Mar</option>
@@ -375,7 +376,7 @@ export default function Home(){
                                                             </div>
 
                                                             <div className="col-md-4 form-group inputDateBirth">
-                                                                <select onChange={(year)=>updateYDay(year.target.vaue)} className="form-control" aria-label=".form-select-lg example">
+                                                                <select onChange={(year)=>updateYDay(year.target.value)} className="form-control" aria-label=".form-select-lg example">
                                                                     <option value="2023">2023</option>
                                                                     <option value="2022">2022</option>
                                                                     <option value="2021">2021</option>
@@ -385,7 +386,6 @@ export default function Home(){
                                                                     <option value="2017">2017</option>
                                                                     <option value="2016">2016</option>
                                                                     <option value="2015">2015</option>
-
                                                                     <option value="2014">2014</option>
                                                                     <option value="2013">2013</option>
                                                                     <option value="2012">2012</option>
@@ -395,8 +395,6 @@ export default function Home(){
                                                                     <option value="2008">2008</option>
                                                                     <option value="2007">2007</option>
                                                                     <option value="2006">2006</option>
-
-
                                                                     <option value="2005">2005</option>
                                                                     <option value="2004">2004</option>
                                                                     <option value="2003">2003</option>
@@ -406,8 +404,6 @@ export default function Home(){
                                                                     <option value="1999">1999</option>
                                                                     <option value="1998">1998</option>
                                                                     <option value="1997">1997</option>
-
-
                                                                     <option value="1996">1996</option>
                                                                     <option value="1995">1995</option>
                                                                     <option value="1994">1994</option>
@@ -417,7 +413,6 @@ export default function Home(){
                                                                     <option value="1990">1990</option>
                                                                     <option value="1989">1989</option>
                                                                     <option value="1988">1988</option>
-
                                                                     <option value="1987">1987</option>
                                                                     <option value="1986">1986</option>
                                                                     <option value="1985">1985</option>
@@ -427,7 +422,6 @@ export default function Home(){
                                                                     <option value="1981">1981</option>
                                                                     <option value="1980">1980</option>
                                                                     <option value="1979">1979</option>
-
                                                                     <option value="1978">1978</option>
                                                                     <option value="1977">1977</option>
                                                                     <option value="1976">1976</option>
@@ -437,7 +431,6 @@ export default function Home(){
                                                                     <option value="1972">1972</option>
                                                                     <option value="1971">1971</option>
                                                                     <option value="1970">1970</option>
-
                                                                     <option value="1969">1969</option>
                                                                     <option value="1968">1968</option>
                                                                     <option value="1967">1967</option>
@@ -447,7 +440,6 @@ export default function Home(){
                                                                     <option value="1953">1953</option>
                                                                     <option value="1952">1952</option>
                                                                     <option value="1951">1951</option>
-
                                                                     <option value="1950">1950</option>
                                                                     <option value="1949">1949</option>
                                                                     <option value="1948">1948</option>
@@ -473,14 +465,14 @@ export default function Home(){
                                                     <div className="row">
                                                         <div className="col-md-12 form-group">
                                                         <label for="name" className="col-form-label">Senha</label>
-                                                        <input type="text" className="form-control" name="password" id="password" maxLength={15} placeholder="Acima de 3 caracteres" value={password} onChange={(password)=>setPassword(password.target.value)}/>
+                                                        <input type="password" className="form-control" name="password" id="password" maxLength={15} placeholder="Acima de 3 caracteres" value={password} onChange={(password)=>setPassword(password.target.value)}/>
                                                         <label className="error" id="errorPassword">{errorPassword}</label>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-md-12 form-group">
                                                         <label for="name" className="col-form-label">Confirmação de senha</label>
-                                                        <input type="text" className="form-control" name="passwordConfirm" id="passwordConfirm"  maxLength={15}  placeholder="Digite sua senha novamente"  value={passwordConfirm} onChange={(passwordConfirm)=>setPasswordConfirm(passwordConfirm.target.value)}/>
+                                                        <input type="password" className="form-control" name="passwordConfirm" id="passwordConfirm"  maxLength={15}  placeholder="Digite sua senha novamente"  value={passwordConfirm} onChange={(passwordConfirm)=>setPasswordConfirm(passwordConfirm.target.value)}/>
                                                         <label className="error" id="errorPasswordConfirm">{errorPasswordConfirm}</label>
                                                         </div>
                                                     </div>
