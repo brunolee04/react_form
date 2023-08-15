@@ -43,6 +43,8 @@ export default function Home(){
     useEffect(() => {
 
         function registerForm(){
+
+           
             if(validateForm()){
                 Api.post("/register",{
                     name: name,
@@ -59,9 +61,8 @@ export default function Home(){
                         if(data.status){
                             setCustomer(1);
                             const timeOut = setTimeout(success, 2000);
-                        }
-                        else{
-                            console.log("Adicionar Exceção");
+                        } else{
+                           alert("Erro ao realizar cadastro, tente novamente e procure um atendente caso o erro persista.");
                         }
                     }
                 })
